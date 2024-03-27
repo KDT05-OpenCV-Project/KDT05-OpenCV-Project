@@ -7,27 +7,25 @@
 손예림 : [깃허브 링크](https://github.com/osllzd)  
 명노아 : [깃허브 링크](https://github.com/noah2397)
 
-![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
-![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
 ![Matplotlib](https://img.shields.io/badge/Matplotlib-%23ffffff.svg?style=for-the-badge&logo=Matplotlib&logoColor=black)
-![PyCharm](https://img.shields.io/badge/pycharm-143?style=for-the-badge&logo=pycharm&logoColor=black&color=black&labelColor=green)  
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white)
 
 <hr/>
 
 #### 개발환경
 
-| 패키지 이름  | 버전   | 사용 커맨드(Version command) |
-| ------------ | ------ | ---------------------------- |
-| Python       | 3.8.18 | python --version             |
-| jupyter      | 1.0.0  | pip show jupyter             |
-| ipython      | 8.12.2 | pip show ipython             |
-| notebook     | 7.0.6  | pip show notebook            |
-| numpy        | 1.24.3 | pip show numpy               |
-| pandas       | 2.0.3  | pip show pandas              |
-| matplotlib   | 3.7.2  | pip show matplotlib          |
-| skicit-learn | 1.3.0  | print(sklearn.**version**)   |
+| 패키지 이름  | 버전   |
+| ------------ | ------ |
+| Python       | 3.8.18 |
+| numpy        | 1.24.3 |
+| pytorch-cpu  | 2.2.0  |
+| torch        | 2.2.1  |
+| torchinfo    | 1.8.0  |
+| torchmetrics | 1.3.1  |
+| torchvision  | 0.17.1 |
+| torchviz     | 0.0.2  |
 
 <hr/>
 
@@ -37,28 +35,35 @@
 
 #### 사용한 데이터 사이트
 
-1. []()
+1. [치와와 vs 머핀](https://www.kaggle.com/datasets/samuelcortinhas/muffin-vs-chihuahua-image-classification)
+2. [Chrome 이미지 크롤링 익스텐션](https://chromewebstore.google.com/detail/fatkun-batch-download-ima/efcapamiilmdfbbilogcddbdckjhpajj)
 <hr/>
 
-###### 주제 : ????
+###### 주제 : 독러닝(DogLearning, "고도의 물체는 강아지와 분류할 수 없다")
+
+![alt text](image.png)
 
 - 목차
 
 * 1. 주제 선정 배경
-* 2. 전처리
+* 2. 역할 분담
+* 3. 머핀 vs 치와와(손예림)
+* 4. 치킨 vs 푸들(임소영)
+* 5. 기장떡 vs 비숑(이화은)
+* 6. 대걸레 vs Mop Dog(명노아)
+* 7. 결론
   </hr>
 
 ###### 역할 분담
 
-|          역할 | 참여인원 |
-| ------------: | -------- |
-|      주제선정 |          |
-|          코딩 |          |
-|          발표 |          |
-|       git관리 |          |
-|   Readme 작성 |          |
-|      PPT 제작 |          |
-| PPT 관리,병합 |          |
+|             역할 | 참여인원                       |
+| ---------------: | ------------------------------ |
+|         주제선정 | 손예림, 이화은                 |
+|    Github Readme | 임소영, 명노아                 |
+|    데이터 전처리 | 손예림, 임소영, 이화은, 명노아 |
+| 전이학습(Resnet) | 임소영, 명노아                 |
+|              CNN | 손예림, 이화은                 |
+| 최종 결과물 산출 | 손예림, 임소영, 이화은, 명노아 |
 
 ### 소주제 개요(개인 항목)
 
@@ -84,7 +89,77 @@
     명노아 
   </summary>
 
-</details>
+#### ✅PPT 부분 참고 바람
+
+# 0. 대걸레와 대걸레와 흡사한 쉽독(Sheep Dog)을 분류하는 모델 생성
+
+![alt text](명노아/readme_img/image-1.png)
+
+## 1. 전처리
+
+- Chrome 이미지 크롤링 익스텐션을 사용하여 각각 "mop", "mop dog" 이미지를 크롤링 받아옴
+- 여러개의 검색 엔진(구글, Yahoo, 네이버, 다음)에서 중복되지 않는 선에서 데이터를 수집  
+  ![alt text](명노아/readme_img/image-2.png)
+
+- 마우스 콜백 함수를 사용하여, ROI만을 기존 경로에 저장하도록 수정
+- ![alt text](명노아/readme_img/image-3.png)
+
+## 2. 모델 생성
+
+- CNN(Convolution Neural Network)  
+  ![alt text](명노아/readme_img/image-4.png)
+- Transfer learning(Resnet18) : 전이학습으로 import 해서 사용
+
+## 3. 학습 진행
+
+- 옵티마이저(Optimizer) : AdamW
+- 손실함수(Loss function) : CrossEntropyLoss
+- 배치사이즈(Batch size) : train(10), test(8)
+- tqdm 패키지 사용 => progression bar 시각화 사용 📊  
+  ![alt text](명노아/readme_img/image-5.png)
+
+## 4. 학습 도중 분석 : 히스토그램
+
+- Opencv의 cv2.calHist사용
+
+  #### 흑백 히스토그램
+
+  ![alt text](명노아/readme_img/image-6.png)
+  => 강아지의 사진이 화소 분포 범위가 넓다
+
+  #### 컬러 히스토그램
+
+  ![alt text](명노아/readme_img/image-7.png)
+  => 강아지의 사진이 RGB의 분포 차이가 크다
+
+따라서, 색감의 차이가 두드러지도록 촉감을 표현하기 위해 Threshold 사용
+
+#### OTSU 알고리즘
+
+Threshold 사용 => 이미지 전처리 후 사용  
+![alt text](명노아/readme_img/image-8.png)
+
+하지만 단일 역치값을 사용하면 강아지의 사진 대부분이 검정으로 처리되어 사용 불가능  
+=> Threshold보다 성능이 뛰어난 Adaptive Threshold로 처리  
+![alt text](명노아/readme_img/image-9.png)
+
+## 5. 결과 분석
+
+1. 일반 CNN 모델 사용  
+   ![alt text](명노아/readme_img/image-10.png)
+2. 전이학습 : Resnet18 사용  
+   ![alt text](명노아/readme_img/image-11.png)
+3. Adaptive Threshold 적용  
+   ![alt text](명노아/readme_img/image-12.png)
+4. Adaptive Threshold 적용 + Dropout + BatchNormalization  
+   ![alt text](명노아/readme_img/image-13.png)
+   ![alt text](명노아/readme_img/image-14.png)
+
+## 6. 결론
+
+![alt text](명노아/readme_img/image-15.png)
+
+  </details>
 
 </hr>
 
