@@ -41,7 +41,7 @@
 
 ###### 주제 : 독러닝(DogLearning, "고도의 물체는 강아지와 분류할 수 없다")
 
-![alt text](image.png)
+![alt text](명노아/readme_img/image.png)
 
 - 목차
 
